@@ -9,18 +9,18 @@ export default function useAppData(){
     return moment(date).subtract(12, 'days').format('YYYY-MM-DD');
   };
 
-  const [dates, setDates] = useState({empty:true});
-  const [likes, setLikes] = usePersistedState("localLikes", {});
-  const {loading, data } = GetData(dates);  
+  const [dates, setDates] = useState({empty:true}); //tracks which dates were most recently used to call from API
+  const [likes, setLikes] = usePersistedState("localLikes", {}); //tracks which posts are liked and saves into localStorage along with app state
+  const {loading, data } = GetData(dates); //loading state for when awaiting API response
 
   useEffect(() =>{
     setDates({endDay: today, startDay: twelveDaysAgo(today)});
 	},[today]);
 
   const observer = useRef();
-  const lastPost = useCallback(
+  const lastPost = useCallback( //function to call when observer has reached the above reference to set dates state with new dates
   (node) => {
-    const setNewDays = (oldDates) => {
+    const setNewDays = (oldDates) => { //calculate 12 days from the last date in state
       const newDates = {};
   
       newDates.endDay = moment(oldDates.startDay).subtract(1, 'days').format('YYYY-MM-DD');
@@ -29,7 +29,7 @@ export default function useAppData(){
       return newDates;
     };
 
-    if (loading) return;
+    if (loading) return; // prevents setting new dates while API is currently being called
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
