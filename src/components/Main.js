@@ -36,7 +36,6 @@ function Main() {
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        console.log("triggering");
         setDates(setNewDays(dates));
       }
     });
@@ -50,15 +49,8 @@ function Main() {
       key: info.date,
       data: info
     };
-    
-    if (index === data.length - 2) {
-      return (
-        <Fragment>
-          <Post {...props} />
-          <div ref={lastPost}></div>
-        </Fragment>
-      )
-    };
+
+    if (info.type === "video") return //skip videos
     
     return <Post {...props} />
   });
@@ -67,6 +59,7 @@ function Main() {
     <Wrapper>
       <Container>
         {parsedPosts}
+        <div ref={lastPost}></div>
         <LoadingWrapper>
           { loading && <CircularProgress/> }
         </LoadingWrapper>
