@@ -16,8 +16,10 @@ function Post(props) {
         </Image>
         <ActionButtons>
           {props.liked === false ? 
-            <FavoriteBorderIcon onClick={() =>{ props.onLike(true, props.data.date)}}/> : 
-            <FavoriteIcon onClick={() =>{ props.onLike(false, props.data.date)}}/>
+            <FavoriteBorderIcon onClick={() =>{ props.onLike(true, props.data.date)}}/> :
+            <LikedWrapper>
+              <FavoriteIcon onClick={() =>{ props.onLike(false, props.data.date)}}/>
+            </LikedWrapper> 
           }
         </ActionButtons>
         <Details>
@@ -69,4 +71,8 @@ const ActionButtons = styled.div`
   display: flex;
   // justify-content: space-between;
   padding: 6px 16px 8px;
+`
+
+const LikedWrapper = styled.div `
+  color: red;
 `
