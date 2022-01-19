@@ -1,6 +1,7 @@
 import { useState, useEffect} from 'react';
 import styled from 'styled-components';
 import nasa_api from './nasa_api';
+import Post from './Post';
 
 function Main() {
 
@@ -9,13 +10,15 @@ function Main() {
   useEffect(() =>{
 		Promise.all([
 			nasa_api.get(`planetary/apod?api_key=${process.env.REACT_APP_NASA_API_KEY}`)
-		]).then(res => setData(res[0].data));
+		]).then(res => {
+      setData(res[0].data);
+    }) 
 	},[]);
 
   return (
     <Wrapper>
       <Container>
-        <img src={data.url}></img>; 
+        <Post data={data}/> 
       </Container>
     </Wrapper>
   );
@@ -24,6 +27,7 @@ function Main() {
 export default Main;
 
 const Wrapper = styled.div`
+  // background-color: green;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -33,4 +37,5 @@ const Wrapper = styled.div`
 const Container = styled.div`
   display: flex;
   width = 80%;
+  // background-color: blue;
 `
