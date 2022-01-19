@@ -1,30 +1,23 @@
-import { useState, useEffect} from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import nasa_api from './nasa_api';
-import Post from './Post';
 import moment from 'moment';
+import Post from './Post';
+import GetData from '../hooks/getData';
+
 
 function Main() {
-
-  const [data, setData] = useState([]);
-
-  const today = moment().format('YYYY-MM-DD');
   
+  const today = moment().format('YYYY-MM-DD');
   const twelveDaysAgo = (date) => {
     return moment(date).subtract(12, 'days').format('YYYY-MM-DD');
   };
-  
-  const newDay = twelveDaysAgo(today);
-  
+
+  const [dates, setDates] = useState({});
+  const {loading, data } = GetData(dates);  
 
   useEffect(() =>{
-		Promise.all([
-      nasa_api.get(`planetary/apod?api_key=${process.env.REACT_APP_NASA_API_KEY}&start_date=${newDay}`)
-		]).then(res => {
-      const reversedData = res[0].data.reverse();
-      setData(reversedData);
-    }) 
-	},[]);
+    setDates({endDay: today, startDay: twelveDaysAgo(today)});
+	},[today]);
 
   const parsedPosts = data.map((info)=> {
       return (
