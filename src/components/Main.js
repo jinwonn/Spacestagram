@@ -4,6 +4,7 @@ import moment from 'moment';
 import Post from './Post';
 import GetData from '../hooks/getData';
 
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Main() {
   
@@ -66,6 +67,9 @@ function Main() {
     <Wrapper>
       <Container>
         {parsedPosts}
+        <LoadingWrapper>
+          { loading && <CircularProgress/> }
+        </LoadingWrapper>
       </Container>
     </Wrapper>
   );
@@ -83,7 +87,13 @@ const Wrapper = styled.div`
 `
 const Container = styled.div`
   display: flex;
+  align-items: center;
   flex-direction: column;
   width = 80%;
-  // background-color: blue;
+`
+const LoadingWrapper = styled.div`
+  height: 60px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 `
