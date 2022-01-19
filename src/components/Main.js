@@ -27,7 +27,7 @@ function Main() {
 export default Main;
 
 const Wrapper = styled.div`
-  background-color: green;
+  // background-color: green;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -37,5 +37,5 @@ const Wrapper = styled.div`
 const Container = styled.div`
   display: flex;
   width = 80%;
-  background-color: blue;
+  // background-color: blue;
 `

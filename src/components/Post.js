@@ -7,17 +7,17 @@ function Post(props) {
       <Container>
         <Header>
           <b>{props.data.copyright}</b>
-          <a>{props.data.title}</a>
+          <p>{props.data.title}</p>
         </Header>
         <Image>
           <img src={props.data.url}></img>
         </Image>
         <Details>
-          <a>{props.data.explanation}</a>
-          <Date>
-            <a>{props.data.date}</a>
-          </Date>
+          <p>{props.data.explanation}</p>
         </Details>
+        <Date>
+          <time>{props.data.date}</time>
+        </Date>
       </Container>
     </Wrapper>
   );
@@ -26,11 +26,11 @@ function Post(props) {
 export default Post;
 
 const Wrapper = styled.div`
-  
 `
 
 const Container = styled.div`
-  max-width: 614px
+  max-width: 614px;
+  border: 1px solid rgba(219,219,219);
 `
 const Header = styled.div`
   display: flex;
@@ -46,9 +46,11 @@ const Image = styled.div`
 `
 const Details = styled.div`
   font-size 14px;
+  margin-bottom:4px;
+  padding: 0px 16px 0px;
+  `
+  const Date = styled.div`
+  font-size 14px;
   margin-bottom: 16px;
   padding: 0px 16px 0px;
-`
-const Date = styled.div `
-  margin-top:4px
 `
