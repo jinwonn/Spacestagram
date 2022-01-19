@@ -10,6 +10,7 @@ function Main() {
   const {data, likes, loading, lastPost, onLike} = useAppData();
 
   const parsedPosts = data.map((info)=> {
+    let output;
     if (info.media_type === "image") { //skip videos
       let props = {
         key: info.date,
@@ -18,8 +19,9 @@ function Main() {
         onLike: onLike
       };
       
-      return <Post {...props} />;
+      output = <Post {...props} />;
     } 
+    return output;
   });
   
   return (

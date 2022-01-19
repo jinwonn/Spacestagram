@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import ShareIcon from '@mui/icons-material/Share';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Grow } from "@mui/material";
@@ -14,7 +13,7 @@ function Post(props) {
             <p>{props.data.title}</p>
           </Header>
           <Image>
-            <img src={props.data.url}></img>
+            <img src={props.data.url} alt=""></img>
           </Image>
           <ActionButtons>
             {props.liked === false ? 
