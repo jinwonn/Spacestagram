@@ -1,42 +1,75 @@
-import { useState, useEffect} from 'react';
+import { useEffect, useState, useCallback, useRef, Fragment } from 'react';
 import styled from 'styled-components';
-import nasa_api from './nasa_api';
-import Post from './Post';
 import moment from 'moment';
+import Post from './Post';
+import GetData from '../hooks/getData';
+
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Main() {
-
-  const [data, setData] = useState([]);
-
-  const today = moment().format('YYYY-MM-DD');
   
+  const today = moment().format('YYYY-MM-DD');
   const twelveDaysAgo = (date) => {
     return moment(date).subtract(12, 'days').format('YYYY-MM-DD');
   };
-  
-  const newDay = twelveDaysAgo(today);
-  
+
+  const [dates, setDates] = useState({});
+  const {loading, data } = GetData(dates);  
 
   useEffect(() =>{
-		Promise.all([
-      nasa_api.get(`planetary/apod?api_key=${process.env.REACT_APP_NASA_API_KEY}&start_date=${newDay}`)
-		]).then(res => {
-      const reversedData = res[0].data.reverse();
-      setData(reversedData);
-    }) 
-	},[]);
+    setDates({endDay: today, startDay: twelveDaysAgo(today)});
+	},[today]);
 
-  const parsedPosts = data.map((info)=> {
-      return (
-        <Post data={info}/>
-      )
-    }
+  const setNewDays = (oldDates) => {
+    const newDates = {};
+
+    newDates.endDay = moment(oldDates.startDay).subtract(1, 'days').format('YYYY-MM-DD');
+    newDates.startDay = twelveDaysAgo(newDates.endDay);
+    
+    return newDates;
+  };
+
+  const observer = useRef();
+  const lastPost = useCallback(
+  (node) => {
+    if (loading) return;
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        console.log("triggering");
+        setDates(setNewDays(dates));
+      }
+    });
+    if (node) observer.current.observe(node);
+  },
+  [loading]
   );
-
+  
+  const parsedPosts = data.map((info, index)=> {
+    let props = {
+      key: info.date,
+      data: info
+    };
+    
+    if (index === data.length - 2) {
+      return (
+        <Fragment>
+          <Post {...props} />
+          <div ref={lastPost}></div>
+        </Fragment>
+      )
+    };
+    
+    return <Post {...props} />
+  });
+  
   return (
     <Wrapper>
       <Container>
         {parsedPosts}
+        <LoadingWrapper>
+          { loading && <CircularProgress/> }
+        </LoadingWrapper>
       </Container>
     </Wrapper>
   );
@@ -54,7 +87,13 @@ const Wrapper = styled.div`
 `
 const Container = styled.div`
   display: flex;
+  align-items: center;
   flex-direction: column;
   width = 80%;
-  // background-color: blue;
+`
+const LoadingWrapper = styled.div`
+  height: 60px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 `
