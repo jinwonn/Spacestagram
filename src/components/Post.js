@@ -6,7 +6,7 @@ function Post(props) {
     <Wrapper>
       <Container>
         <Header>
-          <b>{props.data.copyright}</b>
+          <b>{props.data.copyright ? props.data.copyright : "Unknown" }</b>
           <p>{props.data.title}</p>
         </Header>
         <Image>
