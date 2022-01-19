@@ -27,6 +27,8 @@ function Header() {
 export default Header;
 
 const Wrapper = styled.div`
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -34,6 +36,7 @@ const Wrapper = styled.div`
   padding: 12px 4px 4px 16px;
   background-color: white;
   colour: black;
+  border-bottom: 1px solid rgba(219,219,219);
 `
 
 const LogoWrapper = styled.div`

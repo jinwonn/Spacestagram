@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import ShareIcon from '@mui/icons-material/Share';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function Post(props) {
-  console.log(props.data)
   return (
     <Wrapper>
       <Container>
@@ -12,6 +14,12 @@ function Post(props) {
         <Image>
           <img src={props.data.url}></img>
         </Image>
+        <ActionButtons>
+          {props.liked === false ? 
+            <FavoriteBorderIcon onClick={() =>{ props.onLike(true, props.data.date)}}/> : 
+            <FavoriteIcon onClick={() =>{ props.onLike(false, props.data.date)}}/>
+          }
+        </ActionButtons>
         <Details>
           <p>{props.data.explanation}</p>
         </Details>
@@ -50,8 +58,15 @@ const Details = styled.div`
   margin-bottom:4px;
   padding: 0px 16px 0px;
   `
+
   const Date = styled.div`
   font-size 14px;
   margin-bottom: 16px;
   padding: 0px 16px 0px;
+`
+
+const ActionButtons = styled.div`
+  display: flex;
+  // justify-content: space-between;
+  padding: 6px 16px 8px;
 `
