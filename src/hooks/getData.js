@@ -23,7 +23,9 @@ function GetData(dates) {
       setLoading(true)
 		]).then(res => {
       const reversedData = res[0].data.reverse();
-      setData(reversedData);
+      setData((prev) => {
+        return [...new Set([...prev, ...reversedData])];
+      })
       setLoading(false);
     }); 
   }, [dates]);
