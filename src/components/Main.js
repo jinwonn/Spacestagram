@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import Post from './Post';
 import GetData from '../hooks/getData';
+import usePersistedState from '../hooks/usePersistedState';
 
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -14,7 +15,7 @@ function Main() {
   };
 
   const [dates, setDates] = useState({empty:true});
-  const [likes, setLikes] = useState({});
+  const [likes, setLikes] = usePersistedState("localLikes", {});
   const {loading, data } = GetData(dates);  
 
   useEffect(() =>{
