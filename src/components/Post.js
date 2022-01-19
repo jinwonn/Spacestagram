@@ -14,7 +14,10 @@ function Post(props) {
           <img src={props.data.url}></img>
         </Image>
         <ActionButtons>
-          <FavoriteBorderIcon onClick={() =>{ console.log("clicked")}}/>
+          {props.liked === false ? 
+            <FavoriteBorderIcon onClick={() =>{ props.onLike(true)}}/> : 
+            <FavoriteIcon onClick={() =>{ props.onLike(false)}}/>
+          }
         </ActionButtons>
         <Details>
           <p>{props.data.explanation}</p>
