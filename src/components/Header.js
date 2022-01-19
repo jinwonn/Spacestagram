@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import RocketIcon from '@mui/icons-material/Rocket';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IconButton } from '@mui/material';
 
 function Header() {
