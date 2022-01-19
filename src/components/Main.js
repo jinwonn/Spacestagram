@@ -13,7 +13,7 @@ function Main() {
     return moment(date).subtract(12, 'days').format('YYYY-MM-DD');
   };
 
-  const [dates, setDates] = useState({});
+  const [dates, setDates] = useState({empty:true});
   const {loading, data } = GetData(dates);  
 
   useEffect(() =>{
