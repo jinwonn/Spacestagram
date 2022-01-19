@@ -31,6 +31,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   max-width: 614px;
   border: 1px solid rgba(219,219,219);
+  margin-bottom: 24px
 `
 const Header = styled.div`
   display: flex;
