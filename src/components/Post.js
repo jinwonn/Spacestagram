@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 function Post(props) {
-  console.log(props.data)
   return (
     <Wrapper>
       <Container>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef, Fragment } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import Post from './Post';
@@ -19,13 +19,49 @@ function Main() {
     setDates({endDay: today, startDay: twelveDaysAgo(today)});
 	},[today]);
 
-  const parsedPosts = data.map((info)=> {
-      return (
-        <Post data={info}/>
-      )
-    }
-  );
+  const setNewDays = (oldDates) => {
+    const newDates = {};
 
+    newDates.endDay = moment(oldDates.startDay).subtract(1, 'days').format('YYYY-MM-DD');
+    newDates.startDay = twelveDaysAgo(newDates.endDay);
+    
+    return newDates;
+  };
+
+  const observer = useRef();
+  const lastPost = useCallback(
+  (node) => {
+    if (loading) return;
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        console.log("triggering");
+        setDates(setNewDays(dates));
+      }
+    });
+    if (node) observer.current.observe(node);
+  },
+  [loading]
+  );
+  
+  const parsedPosts = data.map((info, index)=> {
+    let props = {
+      key: info.date,
+      data: info
+    };
+    
+    if (index === data.length - 2) {
+      return (
+        <Fragment>
+          <Post {...props} />
+          <div ref={lastPost}></div>
+        </Fragment>
+      )
+    };
+    
+    return <Post {...props} />
+  });
+  
   return (
     <Wrapper>
       <Container>
