@@ -14,7 +14,7 @@ function Main() {
   };
 
   const [dates, setDates] = useState({empty:true});
-  const [likes, setLikes] = useState(false);
+  const [likes, setLikes] = useState({});
   const {loading, data } = GetData(dates);  
 
   useEffect(() =>{
@@ -46,20 +46,19 @@ function Main() {
   [loading, dates]
   );
 
-  const onLike = (like) => {
+  const onLike = (like, post) => {
     if (like) {
-      setLikes(true);
+      setLikes({...likes, [post]: true});
       return;
     }
-    setLikes(false);
-    
+    setLikes({...likes, [post]: false});
   };
   
   const parsedPosts = data.map((info, index)=> {
     let props = {
       key: info.date,
       data: info,
-      liked: likes,
+      liked: likes[info.date] ? true : false,
       onLike: onLike
     };
     
