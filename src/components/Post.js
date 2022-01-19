@@ -39,6 +39,7 @@ const Wrapper = styled.div`
 `
 
 const Container = styled.div`
+  background-color: white;
   max-width: 614px;
   border: 1px solid rgba(219,219,219);
   margin-bottom: 24px
@@ -71,6 +72,7 @@ const ActionButtons = styled.div`
   display: flex;
   // justify-content: space-between;
   padding: 6px 16px 8px;
+  height: 25px
 `
 
 const LikedWrapper = styled.div `

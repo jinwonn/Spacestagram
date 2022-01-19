@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef, Fragment } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import Post from './Post';
@@ -83,18 +83,18 @@ function Main() {
 export default Main;
 
 const Wrapper = styled.div`
-  // background-color: green;
   display: flex;
   justify-content: center;
   width: 100%;
   height: 100%;
-  margin-top: 15px;
+  // margin-top: 15px;
 `
 const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   width = 80%;
+  padding-top: 15px;
 `
 const LoadingWrapper = styled.div`
   height: 60px;
