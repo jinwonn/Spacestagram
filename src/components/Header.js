@@ -17,7 +17,7 @@ function Header() {
       </TitleWrapper>
       <NavWrapper>
         <IconButton>
-          <FavoriteIcon/>
+          <FavoriteIcon onClick={()=>{console.log("clicked")}}/>
         </IconButton>
       </NavWrapper>
     </Wrapper>
