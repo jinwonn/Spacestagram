@@ -16,9 +16,9 @@ function Header() {
         <div>Spacestagram</div>
       </TitleWrapper>
       <NavWrapper>
-        <IconButton>
+        {/* <IconButton>
           <FavoriteIcon onClick={()=>{console.log("clicked")}}/>
-        </IconButton>
+        </IconButton> */}
       </NavWrapper>
     </Wrapper>
   );
