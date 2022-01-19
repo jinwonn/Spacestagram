@@ -20,18 +20,18 @@ function Main() {
     setDates({endDay: today, startDay: twelveDaysAgo(today)});
 	},[today]);
 
-  const setNewDays = (oldDates) => {
-    const newDates = {};
-
-    newDates.endDay = moment(oldDates.startDay).subtract(1, 'days').format('YYYY-MM-DD');
-    newDates.startDay = twelveDaysAgo(newDates.endDay);
-    
-    return newDates;
-  };
-
   const observer = useRef();
   const lastPost = useCallback(
   (node) => {
+    const setNewDays = (oldDates) => {
+      const newDates = {};
+  
+      newDates.endDay = moment(oldDates.startDay).subtract(1, 'days').format('YYYY-MM-DD');
+      newDates.startDay = twelveDaysAgo(newDates.endDay);
+      
+      return newDates;
+    };
+
     if (loading) return;
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver((entries) => {
@@ -42,7 +42,7 @@ function Main() {
     });
     if (node) observer.current.observe(node);
   },
-  [loading]
+  [loading, dates]
   );
   
   const parsedPosts = data.map((info, index)=> {
