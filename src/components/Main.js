@@ -21,7 +21,8 @@ function Main() {
 		Promise.all([
       nasa_api.get(`planetary/apod?api_key=${process.env.REACT_APP_NASA_API_KEY}&start_date=${newDay}`)
 		]).then(res => {
-      setData(res[0].data);
+      const reversedData = res[0].data.reverse();
+      setData(reversedData);
     }) 
 	},[]);
 
@@ -32,7 +33,6 @@ function Main() {
     }
   );
 
-  console.log(parsedPosts);
   return (
     <Wrapper>
       <Container>
