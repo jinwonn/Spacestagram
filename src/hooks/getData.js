@@ -13,6 +13,7 @@ function GetData(dates) {
 
     let url = `planetary/apod?api_key=${process.env.REACT_APP_NASA_API_KEY}`;
     
+    if (dates.empty) return; //prevents default API call when no parameters are inputted
     if (startDay) url += `&start_date=${startDay}`; 
     if (endDay) url += `&end_date=${endDay}`; 
     if (count) url += `&count=${count}`;
@@ -24,7 +25,7 @@ function GetData(dates) {
       const reversedData = res[0].data.reverse();
       setData(reversedData);
       setLoading(false);
-    }) 
+    }); 
   }, [dates]);
 
   useEffect(() => {
