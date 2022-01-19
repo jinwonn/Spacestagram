@@ -7,7 +7,7 @@ import { Grow } from "@mui/material";
 function Post(props) {
   return (
     <Wrapper>
-      <Grow in={props.data}>
+      <Grow in={props.data ? true : false}>
         <Container>
           <Header>
             <b>{props.data.copyright ? props.data.copyright : "Unknown" }</b>

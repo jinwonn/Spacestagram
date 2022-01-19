@@ -10,16 +10,16 @@ function Main() {
   const {data, likes, loading, lastPost, onLike} = useAppData();
 
   const parsedPosts = data.map((info)=> {
-    let props = {
-      key: info.date,
-      data: info,
-      liked: likes[info.date] ? true : false,
-      onLike: onLike
-    };
-
-    if (info.media_type === "video") return //skip videos
-    
-    return <Post {...props} />
+    if (info.media_type === "image") { //skip videos
+      let props = {
+        key: info.date,
+        data: info,
+        liked: likes[info.date] ? true : false,
+        onLike: onLike
+      };
+      
+      return <Post {...props} />;
+    } 
   });
   
   return (
