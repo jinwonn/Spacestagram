@@ -2,33 +2,36 @@ import styled from "styled-components";
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Grow } from "@mui/material";
 
 function Post(props) {
   return (
     <Wrapper>
-      <Container>
-        <Header>
-          <b>{props.data.copyright ? props.data.copyright : "Unknown" }</b>
-          <p>{props.data.title}</p>
-        </Header>
-        <Image>
-          <img src={props.data.url}></img>
-        </Image>
-        <ActionButtons>
-          {props.liked === false ? 
-            <FavoriteBorderIcon onClick={() =>{ props.onLike(true, props.data.date)}}/> :
-            <LikedWrapper>
-              <FavoriteIcon onClick={() =>{ props.onLike(false, props.data.date)}}/>
-            </LikedWrapper> 
-          }
-        </ActionButtons>
-        <Details>
-          <p>{props.data.explanation}</p>
-        </Details>
-        <Date>
-          <time>{props.data.date}</time>
-        </Date>
-      </Container>
+      <Grow in={props.data}>
+        <Container>
+          <Header>
+            <b>{props.data.copyright ? props.data.copyright : "Unknown" }</b>
+            <p>{props.data.title}</p>
+          </Header>
+          <Image>
+            <img src={props.data.url}></img>
+          </Image>
+          <ActionButtons>
+            {props.liked === false ? 
+              <FavoriteBorderIcon onClick={() =>{ props.onLike(true, props.data.date)}}/> :
+              <LikedWrapper>
+                <FavoriteIcon onClick={() =>{ props.onLike(false, props.data.date)}}/>
+              </LikedWrapper> 
+            }
+          </ActionButtons>
+          <Details>
+            <p>{props.data.explanation}</p>
+          </Details>
+          <Date>
+            <time>{props.data.date}</time>
+          </Date>
+        </Container>
+      </Grow>
     </Wrapper>
   );
 }
