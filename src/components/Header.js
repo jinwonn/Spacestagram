@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   top: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 56px;
   padding: 12px 4px 4px 16px;
   background-color: white;
