@@ -49,5 +49,14 @@ export default function useAppData(){
     setLikes({...likes, [post]: false});
   };
 
-  return {data, likes, loading, lastPost, onLike}
+  const shortenExplanation = (data) => {
+    const shortened = data.map((info)=> {
+      let output = info;
+      if (info.explanation.length > 100) output.shortenedExplanation = info.explanation.slice(0, 100) + " ...";
+      return output
+    });
+    return shortened;
+  };
+
+  return {data, likes, loading, lastPost, onLike, shortenExplanation}
 }

@@ -7,15 +7,18 @@ import Header from './Header';
 import { Fragment } from 'react';
 
 function Main() {
-  const {data, likes, loading, lastPost, onLike} = useAppData();
-
-  const parsedPosts = data.map((info)=> {
+  const {data, likes, loading, lastPost, onLike, shortenExplanation} = useAppData();
+  
+  const shortenedData = shortenExplanation(data);
+  
+  const parsedPosts = shortenedData.map((info)=> {
     let output;
     if (info.media_type === "image") { //skip videos
       let props = {
         key: info.date,
         data: info,
         liked: likes[info.date] ? true : false,
+        shortenedExplanation: info.shortenedExplanation,
         onLike: onLike
       };
       
