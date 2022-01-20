@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Grow } from "@mui/material";
+import { Button, Grow } from "@mui/material";
+import { useState } from "react";
 
 function Post(props) {
+  const [collapsed, setCollapsed] = useState(true);
+
   return (
     <Wrapper>
       <Grow in={props.data ? true : false}>
@@ -24,7 +27,15 @@ function Post(props) {
             }
           </ActionButtons>
           <Details>
-            <p>{props.data.explanation}</p>
+            {
+              collapsed ? 
+                <p>
+                  {props.shortenedExplanation} 
+                  <Button size="small" onClick={()=>{ setCollapsed(false) }}>more</Button>
+                </p> : 
+              <p>{props.data.explanation}</p>
+            }
+            
           </Details>
           <Date>
             <time>{props.data.date}</time>
@@ -62,6 +73,7 @@ const Details = styled.div`
   font-size 14px;
   margin-bottom:4px;
   padding: 0px 16px 0px;
+  
   `
 
   const Date = styled.div`
