@@ -9,6 +9,8 @@ Spacestagram is a single page application that utilizes NASA’s Atronomy Pictur
 - Unlike an image by pressing the heart button
 - Image explaination is automatically collapsed when it is too long to minimize screen realestate usage especially on smaller screens such as mobile screens.
 
+## Hosted URL
+[Space-sta-gram](https://space-sta-gram.netlify.app)
 
 ## Installation
 ```
