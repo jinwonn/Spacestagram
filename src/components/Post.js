@@ -13,7 +13,7 @@ function Post(props) {
             <p>{props.data.title}</p>
           </Header>
           <Image>
-            <img src={props.data.url} alt=""></img>
+            <img src={props.data.url} alt="" onDoubleClick={() =>{ props.onLike(true, props.data.date)}}></img>
           </Image>
           <ActionButtons>
             {props.liked === false ? 
